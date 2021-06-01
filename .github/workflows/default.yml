@@ -12,6 +12,14 @@ jobs:
     name: Build and test image
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Run make
+        run: make all
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -28,11 +36,6 @@ jobs:
           push: ${{ github.event_name == 'push' }}
           load: ${{ github.event_name != 'push' }}
           tags: dlangtour/core-dreg:latest
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          submodules: true
 
       - name: Run test.sh
         run: ./test.sh "dlangtour/core-dreg:latest"
