@@ -17,6 +17,12 @@ jobs:
         with:
           submodules: true
 
+      # Fetch host compiler
+      - uses: dlang-community/setup-dlang@v1
+        name: Install host LDC
+        with:
+          compiler: ldc-latest
+
       - name: Run make
         run: make all
 
